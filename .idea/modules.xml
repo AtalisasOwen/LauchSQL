@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LauchSQL.iml" filepath="$PROJECT_DIR$/.idea/modules/LauchSQL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LauchSQL_main.iml" filepath="$PROJECT_DIR$/.idea/modules/LauchSQL_main.iml" group="LauchSQL" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LauchSQL_test.iml" filepath="$PROJECT_DIR$/.idea/modules/LauchSQL_test.iml" group="LauchSQL" />
+    </modules>
+  </component>
+</project>
