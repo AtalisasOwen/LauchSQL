@@ -22,6 +22,7 @@ class ClientUtil {
             val config = JedisPoolConfig()
             config.maxIdle = 10
             config.maxWaitMillis = 5000
+            TODO("这里还要根据配置来设定")
             redisClient = JedisPool(config,"localhost")
         }
 

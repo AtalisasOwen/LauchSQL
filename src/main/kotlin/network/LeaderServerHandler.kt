@@ -71,6 +71,7 @@ class LeaderCommunicationClient(private val input: ByteBuf,
 
 class LeaderServerHandler(val follower: ConcurrentHashMap<InetSocketAddress, String>) : EchoServerHandler(){
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
+        TODO("这里tnnd，任务的调度很难写呀")
         val input = msg as ByteBuf
 
         var jobAssigned = 0
@@ -86,6 +87,8 @@ class LeaderServerHandler(val follower: ConcurrentHashMap<InetSocketAddress, Str
         println("$jobAssigned follower has received the job")
 
     }
+
+
 }
 
 class LeaderServer(val port: Int, val follower: ConcurrentHashMap<InetSocketAddress, String>) {

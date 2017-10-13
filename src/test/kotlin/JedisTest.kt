@@ -11,11 +11,14 @@ class JedisTest {
 
     @Test
     fun testJedis(){
-        val client = Jedis("localhost",6379)
+        val client = Jedis("119.28.83.71",6379)
         client.set("hello","world")
         client.lpush("Server:1","")
         val result = client["hello"]
         assertEquals(result,"world")
+
+        Thread.sleep(10000)
+
         client.close()
     }
 
@@ -27,6 +30,8 @@ class JedisTest {
             val s = ClientUtil.getServerPort()
             client.lpush(s, "")
         }
+
+
 
         executor.awaitTermination(5,TimeUnit.SECONDS)
         executor.shutdown()
