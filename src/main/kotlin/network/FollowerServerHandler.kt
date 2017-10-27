@@ -16,10 +16,12 @@ import java.util.concurrent.LinkedBlockingQueue
 
 /**
  * Created by owen on 17/10/11.
+ *接收Leader的请求，并串行执行
  */
-class FollowerServerHandler(val queue: LinkedBlockingQueue<JobRequest>) : EchoServerHandler() {
+class FollowerServerHandler() : EchoServerHandler() {
 
     fun toJobRequest(sql: String): JobRequest{
+        //TODO(没那么简单。。。)
         return JobRequest(JobType.INSERT,sql)
     }
 
@@ -29,7 +31,8 @@ class FollowerServerHandler(val queue: LinkedBlockingQueue<JobRequest>) : EchoSe
         val sql = input.toString(CharsetUtil.UTF_8)
         val req = toJobRequest(sql)
 
-        queue.put(req)
+        //TODO("这里应该直接执行的，不应该放进队列")
+
 
         val su = "Success".toByteArray()
         val b = Unpooled.copiedBuffer(su)
@@ -38,11 +41,10 @@ class FollowerServerHandler(val queue: LinkedBlockingQueue<JobRequest>) : EchoSe
     }
 }
 
-class FollowerServer(private val port: Int,
-                     private val queue: LinkedBlockingQueue<JobRequest>) {
+class FollowerServer(private val port: Int) {
 
     fun start() {
-        val serverHandler = FollowerServerHandler(queue)
+        val serverHandler = FollowerServerHandler()
         //创建事件循环组
         val group = NioEventLoopGroup()
         val group2 = NioEventLoopGroup()

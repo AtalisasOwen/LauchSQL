@@ -1,19 +1,48 @@
 package network
 
 import io.netty.bootstrap.Bootstrap
-import io.netty.channel.ChannelFuture
-import io.netty.channel.ChannelInitializer
-import io.netty.channel.EventLoopGroup
+import io.netty.buffer.ByteBuf
+import io.netty.buffer.Unpooled
+import io.netty.channel.*
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioSocketChannel
+import io.netty.util.CharsetUtil
 
 import java.net.InetSocketAddress
 import java.util.*
 
 /**
  * Created by owen on 17/9/19.
+ * 测试客户端
  */
+
+class EchoClientHandler(val sql: String) : SimpleChannelInboundHandler<ByteBuf>() {
+    @Throws(Exception::class)
+    override fun channelActive(ctx: ChannelHandlerContext) {
+        ctx.writeAndFlush(Unpooled.copiedBuffer(sql, CharsetUtil.UTF_8))
+        //ctx.writeAndFlush(JobRequest(JobType.INSERT,"adasda"))
+    }
+
+    @Throws(Exception::class)
+    override fun exceptionCaught(ctx: ChannelHandlerContext, cause: Throwable) {
+        cause.printStackTrace()
+        ctx.close()
+    }
+
+    override fun channelRead0(ctx: ChannelHandlerContext, msg: ByteBuf) {
+
+        try {
+
+            println(msg.toString(CharsetUtil.UTF_8))
+        } catch (e: Exception) {
+            println("asdasd")
+        }
+
+    }
+}
+
+
 class EchoClient(val sql: String) {
     private val host = "localhost"
     private val port = 12321

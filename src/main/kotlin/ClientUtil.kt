@@ -17,13 +17,18 @@ class ClientUtil {
         var redisClient: JedisPool? = null
         val atomicNumber = AtomicInteger()
 
+        //配置信息
+        var ZK_ADDRESS = "localhost"
+        var REDIS_ADDRRESS = "localhost"
+
+
         @Synchronized
         private fun createPool(){
             val config = JedisPoolConfig()
             config.maxIdle = 10
             config.maxWaitMillis = 5000
-            TODO("这里还要根据配置来设定")
-            redisClient = JedisPool(config,"localhost")
+            //TODO("这里还要根据配置来设定")
+            redisClient = JedisPool(config, REDIS_ADDRRESS)
         }
 
 
@@ -43,13 +48,13 @@ class ClientUtil {
         fun getServerPort(): String{
             //return "localhost:8888"
             //TODO:要根据配置文件来改
-            return "localhost:${Random().nextInt(50000)}"
+            return "localhost:8888"
         }
 
         @Synchronized
         fun createCurator(): CuratorFramework{
             if (curatorClient == null){
-                curatorClient = CuratorFrameworkFactory.newClient("localhost:2181", ExponentialBackoffRetry(1000,3))
+                curatorClient = CuratorFrameworkFactory.newClient("$ZK_ADDRESS:2181", ExponentialBackoffRetry(1000,3))
                 curatorClient?.start()
             }
 

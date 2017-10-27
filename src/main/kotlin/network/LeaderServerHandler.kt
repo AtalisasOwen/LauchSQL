@@ -21,7 +21,9 @@ import java.util.concurrent.LinkedBlockingQueue
 /**
  * Created by owen on 17/10/11.
  */
-
+/**
+ * 作为客户端，向Follower发送请求
+ */
 class LeaderCommunicationHandler(val input: ByteBuf) : SimpleChannelInboundHandler<ByteBuf>() {
     @Throws(Exception::class)
     override fun channelActive(ctx: ChannelHandlerContext) {
@@ -69,9 +71,15 @@ class LeaderCommunicationClient(private val input: ByteBuf,
 }
 
 
+
+
+
+/**
+ * 作为服务端，接收客户端的请求
+ */
 class LeaderServerHandler(val follower: ConcurrentHashMap<InetSocketAddress, String>) : EchoServerHandler(){
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
-        TODO("这里tnnd，任务的调度很难写呀")
+        //TODO("这里tnnd，任务的调度很难写呀")
         val input = msg as ByteBuf
 
         var jobAssigned = 0
