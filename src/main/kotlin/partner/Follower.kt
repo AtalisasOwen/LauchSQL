@@ -54,7 +54,7 @@ class Follower(var leader: InetSocketAddress?,
                 val commands = jedis.brpop(5000,key)
                 if ( commands != null && commands.size != 0){
                     for (c in commands){
-                        val request = JobRequest(JobType.INSERT, c)
+                        val request = JobRequest.toJobRequest(c)
                         launch {
                             tasks.put(request)
                         }

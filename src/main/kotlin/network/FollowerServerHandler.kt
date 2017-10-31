@@ -20,16 +20,13 @@ import java.util.concurrent.LinkedBlockingQueue
  */
 class FollowerServerHandler() : EchoServerHandler() {
 
-    fun toJobRequest(sql: String): JobRequest{
-        //TODO(没那么简单。。。)
-        return JobRequest(JobType.INSERT,sql)
-    }
+
 
     override fun channelRead(ctx: ChannelHandlerContext, msg: Any) {
 
         val input = msg as ByteBuf
         val sql = input.toString(CharsetUtil.UTF_8)
-        val req = toJobRequest(sql)
+        val req = JobRequest.toJobRequest(sql)
 
         //TODO("这里应该直接执行的，不应该放进队列")
 
